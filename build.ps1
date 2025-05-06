@@ -29,6 +29,8 @@ Copy-Item -Force -Path "C:\Windows\System32\en-US\manage-bde.exe.mui" -Destinati
 Write-Host "Setting scratch..." -ForegroundColor Green
 dism /set-scratchspace:512 /image:tmp\mount
 
+& .\modInstalls.ps1
+
 Write-Host "Putting our files in place..." -ForegroundColor Green
 $sourceFiles = ".\mods\*"
 $destDir = ".\tmp\mount\"
