@@ -1,2 +1,3 @@
 tmp/
-rTS_WinPE.iso
+*.iso
+*_log.txt

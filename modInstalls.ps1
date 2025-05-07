@@ -19,10 +19,6 @@ Write-Host "Installing CrystalDiskInfo... (2/9)" -ForegroundColor Green
 Write-Host "Installing CrystalDiskMark... (3/9)" -ForegroundColor Green
 & .\mods\installs\cdm.ps1
 
-# exit here for now since the rest of the installs are not working yet
-Write-Host "Exiting for debug purposes..." -ForegroundColor Yellow
-exit 1
-
 Write-Host "Installing GenericLogViewer... (4/9)" -ForegroundColor Green
 & .\mods\installs\glv.bat
 

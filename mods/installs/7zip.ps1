@@ -1,7 +1,7 @@
 # Set output paths
-$exeFile = "7zip_installer.exe"
 $targetDir = "mods\installs\temp\7-Zip\"
-$programDir = "mods\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Tools\7-Zip\"
+$exeFile = Join-Path $targetDir "7zip_installer.exe"
+$programDir = Join-Path $PSScriptRoot "mods\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Tools\7-Zip\"
 
 # Ensure target directories exist
 New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
@@ -30,6 +30,9 @@ Invoke-WebRequest -Uri $downloadUrl -OutFile $exeFile
 
 # Install silently to target folder
 Start-Process -FilePath ".\$exeFile" -ArgumentList "/S /D=$targetDir" -Wait
+
+# Delete the installer
+Remove-Item -Path $exeFile -Force
 
 # Copy installed files to program directory
 try {

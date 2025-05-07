@@ -1,11 +1,41 @@
 # rTS_WinPE build script
 # PipeItToDevNull
-#Requires -RunAsAdministrator
+
+# Check if running as Administrator
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Host "Script is not running as Administrator. Restarting with elevated privileges..." -ForegroundColor Yellow
+    Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs -WorkingDirectory "$PWD"
+    exit
+}
+
+# Ensure the script is running in the correct directory
+Set-Location -Path "$PSScriptRoot"
+
+Write-Host "Current directory: $PWD" -ForegroundColor Green
+
+# Check if the required directories exist, else exit
+if (-not (Test-Path -Path ".\mods")) {
+    Write-Host "Directory ./mods does not exist. Please ensure the script was started in the correct directory." -ForegroundColor Red
+    exit
+}
+
+# Delete the tmp directory if it exists
+if (Test-Path -Path ".\tmp") {
+    Write-Host "Deleting existing ./tmp directory..." -ForegroundColor Yellow
+    Remove-Item -Recurse -Force -Path ".\tmp"
+}
 
 Write-Host "Sourcing our clean environment to ./tmp..." -ForegroundColor Green
 & .\sourceWim.bat
 
+if (Test-Path -Path ".\tmp\mount") {
+    Write-Host "Cleaning up existing mount directory..." -ForegroundColor Yellow
+    dism /unmount-image /mountdir:tmp\mount /discard
+    Remove-Item -Recurse -Force .\tmp\mount
+}
+
 Write-Host "Mounting WIM..." -ForegroundColor Green
+New-Item -ItemType Directory -Force -Path tmp\mount | Out-Null
 dism /mount-image /imagefile:tmp\media\sources\boot.wim /index:1 /mountdir:tmp\mount
 
 Write-Host "Adding packages..." -ForegroundColor Green
@@ -43,4 +73,6 @@ Write-Host "Making an ISO..." -ForegroundColor Green
 & .\makeISO.bat
 
 Write-Host "Cleanup..." -ForegroundColor Green
-Remove-Item -Recurse .\tmp
+Remove-Item -Recurse -Force .\tmp
+
+Pause

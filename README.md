@@ -44,6 +44,10 @@ https://rtech.support/uploads/rTS_WinPE.iso
 * Hwinfo
 * Prime95
 
+#### To add
+* Sysinternals
+* Spec-ify
+
 ##### Sources
 * https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-mount-and-customize
 * https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/wpeinit-and-startnetcmd-using-winpe-startup-scripts 

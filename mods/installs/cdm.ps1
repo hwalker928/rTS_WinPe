@@ -23,8 +23,7 @@ $htmlContent = Get-Content $htmlFilePath -Raw
 
 # Create an HTML document object
 $document = New-Object -ComObject "HTMLFile"
-$document.IHTMLDocument2_write($htmlContent)
-$document.IHTMLDocument2_close()
+$document.write([System.Text.Encoding]::Unicode.GetBytes($htmlContent))
 
 # Get the anchor tag with ID 'download-now-link'
 $link = $document.getElementById("download-now-link")
