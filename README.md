@@ -8,10 +8,6 @@ https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/download-w
 
 Run `build.ps1`
 
-#### Download
-
-https://rtech.support/uploads/rTS_WinPE.iso
-
 #### Added modules
 * WinPE-WMI
 * WinPE-NetFX
@@ -34,7 +30,8 @@ https://rtech.support/uploads/rTS_WinPE.iso
 * Notepad++
 
 ##### Disk Tools
-* CrystalDisk Info
+* CrystalDiskInfo
+* CrystalDiskMark
 
 ##### Diagnostics
 * Speccy
